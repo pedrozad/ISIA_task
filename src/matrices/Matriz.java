@@ -14,7 +14,7 @@ import java.util.Random;
  * @author galvez
  */
 public class Matriz {
-    private int[][]datos;
+    public int[][]datos;
     private Random rnd = new Random();
     
     public Matriz(int filas, int columnas, boolean inicializarAleatorio){
@@ -47,6 +47,31 @@ public class Matriz {
         } 
         return matrizResultante; 
     } 
+    
+    /**
+     * multiplicarDosMatrices
+     * @param a Matriz de dimensiones NxM
+     * @param  b Matriz de dimensiones MxK
+     * @return Matriz de dimensiones NxK que resulta la multiplicación vectorial
+     * @throws DimensionesIncompatibles si a y b no cumplen con las dimensiones adecuadas
+     */
+    public static Matriz multiplicarDosMatrices(Matriz a, Matriz b) throws DimensionesIncompatibles { 
+        int n, m,k, filasA,filasB, columnasB,columnasA ; 
+        filasA = (int) a.getDimension().getHeight(); 
+        columnasA = (int) a.getDimension().getWidth(); 
+        filasB = (int)b.getDimension().getHeight(); 
+        columnasB = (int) b.getDimension().getWidth(); 
+        if (!( columnasA == filasB )) throw new DimensionesIncompatibles("La multiplicación (producto punto) de matrices require que al menos las matrices sean NxM y MxK");
+
+        Matriz matrizResultante = new Matriz(filasA, columnasB, false);
+        for (n=0; n<filasA; n++)
+            for (k=0; k < columnasB; k++)  {
+              matrizResultante.datos[k][n] = 0;
+               for (m=0; m < columnasA; m++)
+                   matrizResultante.datos[k][n] += a.datos[m][n] * b.datos[k][m];                  
+            } 
+        return matrizResultante;
+    }
 
     @Override
     public String toString(){
