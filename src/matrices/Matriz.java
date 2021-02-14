@@ -48,6 +48,24 @@ public class Matriz {
         return matrizResultante; 
     } 
 
+    /**
+     * trasponerMatriz
+     * @param a Matriz de dimensiones NxM
+     * @return Matriz traspuesta de a dimensiones (MxN)
+     */
+    public static Matriz trasponerMatriz(Matriz a) { 
+        int n, m, filasA ,columnasA ; 
+        filasA = (int) a.getDimension().getHeight(); 
+        columnasA = (int) a.getDimension().getWidth(); 
+        
+        Matriz matrizResultante = new Matriz(columnasA, filasA, false);
+        for (n=0; n<filasA; n++)
+            for (m=0; m < columnasA; m++)  {
+                matrizResultante.datos[n][m] = a.datos[m][n];     
+            } 
+        return matrizResultante;
+    }
+    
     @Override
     public String toString(){
         String ret = "";
